@@ -10,7 +10,7 @@ router.get("/get-user", authenticate, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.body.userId });
 
-    console.log(user);
+    // console.log(user);
 
     return res.status(200).send({
       message: "User was found!",

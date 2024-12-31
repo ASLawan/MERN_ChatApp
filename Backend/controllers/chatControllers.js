@@ -22,4 +22,21 @@ router.post("/new-chat", authenticate, async (req, res) => {
   }
 });
 
+router.get("/user-chats", authenticate, async (req, res) => {
+  try {
+    const userChats = await Chat.find({ members: { $in: req.body.userId } });
+
+    res.status(200).send({
+      message: "Successfully gotten chats for current logged in user",
+      success: true,
+      data: userChats,
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: error.message,
+      success: false,
+    });
+  }
+});
+
 export default router;
