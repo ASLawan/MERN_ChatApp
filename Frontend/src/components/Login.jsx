@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { loginUser } from "../apiCalls/auth";
 
 const Login = () => {
@@ -23,15 +24,20 @@ const Login = () => {
     try {
       response = await loginUser(userData);
       if (response.success) {
-        alert(response.message);
+        toast.success(response.message);
         localStorage.setItem("token", response.token);
         window.location.href = "/";
       } else {
-        alert(response.message);
+        toast.error(response.message);
       }
     } catch (error) {
-      alert(response.message);
+      toast.error(response.message);
     }
+
+    setUserData({
+      email: "",
+      password: "",
+    });
   };
   return (
     <div className="flex flex-col p-8 m-4 w-full h-full">
