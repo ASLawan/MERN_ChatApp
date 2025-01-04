@@ -4,8 +4,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { signUpUser } from "../apiCalls/auth.js";
+import { useDispatch } from "react-redux";
+import { showLoader, hideLoader } from "../redux/loaderSlice.js";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+
   // get form data
   let [userData, setUserData] = useState({
     firstname: "",
@@ -25,13 +29,17 @@ const SignUp = () => {
     // console.log(userData);
     let response = null;
     try {
+      dispatch(showLoader());
       response = await signUpUser(userData);
+      dispatch(hideLoader());
       if (response.success) {
         toast.success(response.message);
+        window.location.href = "/login";
       } else {
         toast.error(response.message);
       }
     } catch (error) {
+      dispatch(hideLoader());
       toast.error(response.message);
     }
     setUserData({

@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { loginUser } from "../apiCalls/auth";
+import { useDispatch } from "react-redux";
+import { showLoader, hideLoader } from "../redux/loaderSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   // get form data
   let [userData, setUserData] = useState({
     email: "",
@@ -22,7 +25,9 @@ const Login = () => {
     // console.log(userData);
     let response = null;
     try {
+      // dispatch(showLoader()); // show loader
       response = await loginUser(userData);
+      // dispatch(hideLoader()); // hide loader
       if (response.success) {
         toast.success(response.message);
         localStorage.setItem("token", response.token);
@@ -31,6 +36,7 @@ const Login = () => {
         toast.error(response.message);
       }
     } catch (error) {
+      // dispatch(hideLoader());
       toast.error(response.message);
     }
 
