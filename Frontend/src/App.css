@@ -6,7 +6,7 @@
 }
 
 body {
-  background-image: url("../public/imgs/chat.jpg");
+  background-image: url("/imgs/chat.jpg");
   background-color: rgba(0, 128, 128, 0.5);
   background-blend-mode: overlay;
   background-repeat: no-repeat;

@@ -5,6 +5,8 @@ import UserList from "./UserList";
 
 const Sidebar = () => {
   let [searchkey, setSearchKey] = useState("");
+
+  //   console.log(searchkey);
   return (
     <>
       <div className="flex flex-col justify-center p-4">

@@ -4,17 +4,22 @@ import React from "react";
 import { RiUser2Fill } from "@remixicon/react";
 import { RiSearch2Line } from "@remixicon/react";
 
-const Search = ({ searchKey, setSearchKey }) => {
+const Search = ({ searchkey, setSearchKey }) => {
+  const handleChange = (e) => {
+    setSearchKey(e.target.value);
+    // console.log("From input: ", e.target.value);
+    // console.log("From searchkey: ", searchkey);
+  };
   return (
     <div className="flex justify-center gap-3 items-center">
       <input
         type="search"
         name="search"
         id="search"
-        value={searchKey}
+        value={searchkey}
         placeholder="search user"
         className="outline-teal-600 text-black rounded-full w-full h-7 px-3 py-1"
-        onChange={(e) => setSearchKey(e.target.value)}
+        onChange={(e) => handleChange(e)}
       />
       <RiSearch2Line color="white" size={25} />
     </div>
