@@ -10,3 +10,14 @@ export const getUserChats = async () => {
     return error;
   }
 };
+
+export const createChat = async (members) => {
+  try {
+    const response = await axiosInstance.post(`${baseUrl}/new-chat`, {
+      members,
+    });
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

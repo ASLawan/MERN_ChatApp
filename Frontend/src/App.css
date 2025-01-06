@@ -14,3 +14,60 @@ body {
   background-size: cover;
   height: 100vh;
 }
+
+.selected {
+  display: flex;
+  flex-direction: row;
+  background-color: teal;
+  justify-content: space-around;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.notSelected {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  justify-content: space-around;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.selectedInitials {
+  background-color: white;
+  color: teal;
+}
+
+.notSelectedInitials {
+  background-color: teal;
+  color: white;
+}
+
+.selectedNameEmail {
+  color: white;
+}
+
+.notSelectedNameEmail {
+  color: teal;
+}
+
+.selectedUserBtn {
+  background-color: white;
+  color: teal;
+}
+
+.selectedUserBtn:hover {
+  background-color: teal;
+  color: white;
+}
+.notSelectedUserBtn {
+  background-color: teal;
+  color: white;
+}
+
+.notSelectedUserBtn:hover {
+  background-color: #fff;
+  color: teal;
+}

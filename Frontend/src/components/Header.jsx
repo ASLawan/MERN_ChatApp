@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const { user } = useSelector((state) => state.userReducer);
-  //   console.log(user);
+  // console.log(user);
   //get user name
   const getUserName = () => {
     let name =
@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-col xl:flex-row justify-around w-full h-[100px] items-center bg-teal-600 shadow-white shadow-md">
+    <div className="flex flex-col xl:flex-row justify-around w-full h-[100px] items-center bg-teal-700 shadow-white shadow-md">
       <div className="text-white text-[44px] font-bold flex items-center">
         <RiChat1Line className="mr-4 text-[30px]" size={40} />
         Quick Chat
@@ -31,9 +31,15 @@ const Header = () => {
         <div className="text-white text-[25px] font-semibold flex justify-center items-center">
           {getUserName()}
         </div>
-        <div className="text-teal-600 text-[30px] font-bold w-[80px] h-[80px] bg-white rounded-full flex justify-center items-center ">
-          {getUserInitials()}
-        </div>
+        {user?.profilepic ? (
+          <div className="text-teal-600 text-[30px] font-bold w-[80px] h-[80px] rounded-full flex justify-center items-center ">
+            <img src="" alt="" />
+          </div>
+        ) : (
+          <div className="text-teal-700 text-[30px] font-bold w-[80px] h-[80px] bg-white rounded-full flex justify-center items-center ">
+            {getUserInitials()}
+          </div>
+        )}
       </div>
     </div>
   );

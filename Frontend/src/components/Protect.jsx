@@ -15,6 +15,7 @@ const Protect = ({ children }) => {
   const navigate = useNavigate();
   // const [user, setUser] = useState(null);
   const { user } = useSelector((state) => state.userReducer);
+  // console.log(`From protect: ${user}`);
 
   const getLoggedInUser = async () => {
     let response = null;
@@ -22,9 +23,11 @@ const Protect = ({ children }) => {
     try {
       // dispatch(showLoader());
       response = await getUser();
+      // console.log("Response dot data:", response.data);
       // dispatch(hideLoader());
       if (response.success) {
         dispatch(setUser(response.data));
+        console.log(`From protect after setUser: ${user}`);
       } else {
         toast.error(response.message);
         navigate("/login");
