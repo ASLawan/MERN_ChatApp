@@ -56,6 +56,23 @@ const UserList = ({ searchkey }) => {
     );
   };
 
+  // handle last message
+  const getLastMessage = (user) => {
+    const chat = userChats.find((chat) =>
+      chat.members.some((member) => member._id.includes(user._id))
+    );
+
+    if (!chat.lastmessage) {
+      return user.email;
+    } else {
+      const msgSender = chat.lastmessage.sender === user._id;
+      //   console.log(chat?.lastmessage?.text);
+      return `${msgSender ? "You:" : ""} ${
+        chat?.lastmessage?.text.slice(0, 10) + "..."
+      }`;
+    }
+  };
+
   return (
     <div>
       {users
@@ -93,7 +110,7 @@ const UserList = ({ searchkey }) => {
                   </div>
                 )}
 
-                <div className="flex flex-col justify-center gap-2 items-center">
+                <div className=" justify-center gap-2 items-center hidden w-fit lg:flex md:flex-col">
                   <div
                     className={`${
                       isUserSelected
@@ -110,7 +127,7 @@ const UserList = ({ searchkey }) => {
                         : "notSelectedNameEmail"
                     } font-semibold`}
                   >
-                    {user.email}
+                    {getLastMessage(user)}
                   </div>
                 </div>
                 <div className="flex flex-col justify-around items-center">

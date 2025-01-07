@@ -1,11 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import { createMsg } from "../apiCalls/msg";
+import moment from "moment";
+import { createMsg, getUserMsgs } from "../apiCalls/msg";
+import { RiSendPlaneFill } from "@remixicon/react";
 
 const ChatArea = () => {
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+
   const { selectedChat, user } = useSelector((state) => state.userReducer);
   const selectedUser = selectedChat?.members.find(
     (member) => member._id !== user._id
@@ -34,9 +38,41 @@ const ChatArea = () => {
     }
   };
 
+  // handle Get User Messages
+  const handleGetUserMessages = async () => {
+    try {
+      const response = await getUserMsgs(selectedChat._id);
+
+      if (response.success) {
+        setMessages(response.data);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  // handle time format
+  const handleTimeFormat = (timeStamp) => {
+    const now = moment();
+    const diff = now.diff(moment(timeStamp), "days");
+
+    if (diff < 1) {
+      return `Today ${moment(timeStamp).format("hh:mm A")}`;
+    } else if (diff === 1) {
+      return `Yesterday ${moment(timeStamp).format("hh:mm A")}`;
+    } else {
+      return moment(timeStamp).format("MMM D, hh:mm A");
+    }
+  };
+
+  // useEffect
+  useEffect(() => {
+    handleGetUserMessages();
+  }, [selectedChat]);
+
   return (
     <div className="bg-white w-full flex flex-col rounded-[10px] border-2 border-teal-700">
-      <div className="border-b-4 border-teal-700 w-full flex justify-end px-[50px] pt-[20px]">
+      <div className="border-b-4 border-teal-700 w-full flex justify-start px-[50px] pt-[20px]">
         <p className="text-teal-700 font-semibold text-[20px]">
           {selectedUser?.firstname.charAt(0).toUpperCase() +
             selectedUser?.firstname.slice(1).toLowerCase()}{" "}
@@ -45,12 +81,40 @@ const ChatArea = () => {
         </p>
       </div>
       {/* {selectedChat && <div className="text-teal-700">{selectedChat._id}</div>} */}
-      <div className="p-4 flex flex-col w-full">
-        <h1 className="text-teal-700 font-bold text-[44px] h-[50vh]">
-          Chat Area
-        </h1>
+      <div className="p-4  w-full h-[50vh] overflow-y-auto custom-scrollbar">
+        {/* <h1 className="text-teal-700 font-bold text-[44px] ">Chat Area</h1> */}
+        {messages.map((message) => {
+          const isMessageSender = message.sender === user._id;
+          return (
+            <div
+              key={message._id}
+              className={`text-black font-serif p-2 w-full rounded flex flex-col ${
+                isMessageSender ? "send " : "receive"
+              }`}
+            >
+              <div className={`p-2 max-w-max mb-[-20px]`}>
+                <div
+                  className={`px-2 py-1 ${
+                    isMessageSender
+                      ? "ml-2 bg-teal-200 rounded-t-[28px] rounded-bl-[28px]"
+                      : "mr-2 bg-teal-100 rounded-t-[28px] rounded-br-[28px]"
+                  } mb-0`}
+                >
+                  {message.text}
+                </div>
+                <span
+                  className={`p-0 m-0 text-[12px] text-gray-400 ${
+                    isMessageSender ? "flex justify-end" : "flex justify-start"
+                  }`}
+                >
+                  {handleTimeFormat(message.createdAt)}
+                </span>
+              </div>
+            </div>
+          );
+        })}
       </div>
-      <div className="flex w-full px-4 py-1 gap-4 items-center">
+      <div className="flex w-full px-4 py-1 gap-4 items-center mb-4">
         <input
           type="text"
           name="message"
@@ -65,7 +129,7 @@ const ChatArea = () => {
           className="px-6 py-1 bg-teal-700 text-white rounded font-semibold hover:bg-white hover:text-teal-700 hover:border-2 hover:border-teal-700"
           onClick={handleCreateMessage}
         >
-          Send
+          <RiSendPlaneFill />
         </button>
       </div>
     </div>

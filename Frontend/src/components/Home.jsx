@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col justify-center gap-4 xl:justify-center xl:flex-row p-8 w-full mt-0">
+      <div className="flex justify-center gap-4 xl:justify-center xl:flex-row p-8 w-full mt-0">
         <div className="w-1/5">
           <Sidebar />
         </div>

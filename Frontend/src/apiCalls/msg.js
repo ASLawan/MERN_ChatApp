@@ -10,3 +10,12 @@ export const createMsg = async (message) => {
     return error;
   }
 };
+
+export const getUserMsgs = async (chatID) => {
+  try {
+    const response = await axiosInstance.get(`${baseUrl}/user-msgs/${chatID}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

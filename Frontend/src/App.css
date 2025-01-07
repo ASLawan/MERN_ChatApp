@@ -13,6 +13,7 @@ body {
   background-position: center;
   background-size: cover;
   height: 100vh;
+  overflow-y: hidden;
 }
 
 .selected {
@@ -70,4 +71,36 @@ body {
 .notSelectedUserBtn:hover {
   background-color: #fff;
   color: teal;
+}
+
+/* MESSAGES */
+.send {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.receive {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+/* SCROLL */
+.custom-scrollbar {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #3b82f6 #e5e7eb; /* Firefox */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #e5e7eb; /* Light gray background */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #3b82f6; /* Blue thumb */
+  border-radius: 4px; /* Rounded edges */
 }

@@ -22,12 +22,12 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-col xl:flex-row justify-around w-full h-[100px] items-center bg-teal-700 shadow-white shadow-md">
+    <div className="flex flex-col xl:flex-row justify-around w-full p-[20px] items-center bg-teal-700 shadow-white shadow-md">
       <div className="text-white text-[44px] font-bold flex items-center">
         <RiChat1Line className="mr-4 text-[30px]" size={40} />
         Quick Chat
       </div>
-      <div className="flex justify-center gap-[20px]">
+      <div className="hidden justify-center gap-[20px] lg:flex">
         <div className="text-white text-[25px] font-semibold flex justify-center items-center">
           {getUserName()}
         </div>
